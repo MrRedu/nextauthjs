@@ -8,6 +8,9 @@ export const Nav = () => {
           <Link href="/dashboard">Dashboard</Link>
         </li>
         <li>
+          <Link href="/users">Users</Link>
+        </li>
+        <li>
           <Link href="/help">Help</Link>
         </li>
       </ul>

@@ -10,9 +10,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Nav />
-      <main style={{ backgroundColor: '#008000', minHeight: 'calc(60vh)' }}>
-        {children}
-      </main>
+      <main style={{ minHeight: 'calc(60vh)' }}>{children}</main>
     </>
   )
 }
