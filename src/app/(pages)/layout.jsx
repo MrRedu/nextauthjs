@@ -1,16 +1,20 @@
+'use client'
+
+import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 import { Nav } from '../components'
-import { isLoggedIn } from '../utils/const'
 
 export default function Layout({ children }) {
-  if (!isLoggedIn) {
+  const { data: session } = useSession()
+
+  if (!session) {
     redirect('/')
   }
 
   return (
     <>
       <Nav />
-      <main style={{ minHeight: 'calc(60vh)' }}>{children}</main>
+      <main>{children}</main>
     </>
   )
 }

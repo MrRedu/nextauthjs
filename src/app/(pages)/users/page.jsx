@@ -10,22 +10,44 @@ const loadUsers = async () => {
 
 export default async function UsersPage() {
   const { data } = await loadUsers()
-  console.log({ data })
 
   return (
     <>
-      <h1>{`</UsersPage>`}</h1>
+      <h2>{`</UsersPage>`}</h2>
       <ul>
         {data.map(user => (
           <li>
             <ul>
-              <li>{user.id_user}</li>
-              <li>{user.email_user}</li>
-              <li>{user.password_user}</li>
-              <li>{user.fullname_user}</li>
-              <li>{user.id_rol}</li>
-              <li>{`${new Date(user.created_at)}`}</li>
-              <li>{`${new Date(user.updated_at)}`}</li>
+              <li>
+                ID: <span style={{ color: '#c6c1c2' }}>{user.id_user}</span>
+              </li>
+              <li>
+                EMAIL:{' '}
+                <span style={{ color: '#c6c1c2' }}>{user.email_user}</span>
+              </li>
+              <li>
+                PASSWORD:{' '}
+                <span style={{ color: '#c6c1c2' }}>{user.password_user}</span>
+              </li>
+              <li>
+                FULLNAME:{' '}
+                <span style={{ color: '#c6c1c2' }}>{user.fullname_user}</span>
+              </li>
+              <li>
+                ID_ROL: <span style={{ color: '#c6c1c2' }}>{user.id_rol}</span>
+              </li>
+              <li>
+                CREATED_AT:{' '}
+                <span
+                  style={{ color: '#c6c1c2' }}
+                >{`${new Date(user.created_at)}`}</span>
+              </li>
+              <li>
+                UPDATED_AT:{' '}
+                <span
+                  style={{ color: '#c6c1c2' }}
+                >{`${new Date(user.updated_at)}`}</span>
+              </li>
             </ul>
           </li>
         ))}

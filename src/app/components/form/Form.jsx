@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Input } from './Input'
 import { InputGroup } from './InputGroup'
 import { Label } from './Label'
+import { signIn } from 'next-auth/react'
 
 const initialValueFormData = {
   email: '',
@@ -11,10 +12,33 @@ const initialValueFormData = {
 
 export const Form = () => {
   const [formData, setFormData] = useState(initialValueFormData)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   const handleSubmit = async event => {
     event.preventDefault()
-    console.log(formData)
+    if (!formData.email || !formData.password) {
+      alert('Must provide all the credentials.')
+    }
+
+    try {
+      setLoading(true)
+      const response = await signIn('credentials', {
+        redirect: false,
+        email: formData.email,
+        password: formData.password,
+      })
+
+      if (response.error) {
+        setError(response.error)
+        return
+      }
+    } catch (error) {
+      setError(error)
+      console.error(error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleChange = e => {
@@ -29,12 +53,12 @@ export const Form = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        maxWidth: '320px',
+        width: '320px',
         margin: '0 auto',
       }}
     >
       <InputGroup>
-        <Label htmlFor="email">{`Correo electrónico`}</Label>
+        <Label htmlFor="email">{`E-mail`}</Label>
         <Input
           type="email"
           name="email"
@@ -52,7 +76,7 @@ export const Form = () => {
           flexDirection: 'column',
         }}
       >
-        <Label htmlFor="password">{`Contraseña`}</Label>
+        <Label htmlFor="password">{`Password`}</Label>
         <Input
           type="password"
           name="password"
@@ -70,7 +94,11 @@ export const Form = () => {
           cursor: 'pointer',
           width: '100%',
         }}
-      >{`Iniciar sesión`}</button>
+        disabled={loading}
+      >
+        {`Log In`} {loading ? '...' : ''}
+      </button>
+      {error ? <p style={{ color: 'red' }}>{error}</p> : null}
     </form>
   )
 }
