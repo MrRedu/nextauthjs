@@ -1,0 +1,12 @@
+body {
+  background-color: #121212;
+  color: #fefcfd;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: #a5a5a5;
+}
